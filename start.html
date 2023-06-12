@@ -15,6 +15,28 @@
 
         //set up the canvas and context 
         let canvas = document.createElement("canvas");
+        let ctx = canvas.getContext('2d');
+        canvas.height = document.documentElement.clientHeight;
+        canvas.width = document.documentElement.clientWidth;
+        document.body.appendChild(canvas);
+
+        // set up the enimation loop
+        let timeDelta, timeLast = 0;
+        requestAnimationFrame(loop);
+
+        function loop(timeNow) {
+
+            //calculate the time difference
+            timeDelta = timeNow - timeLast;
+            timeLast = timeNow;
+
+            // space backGround
+            ctx.fillStyle = COLOR_SPACE;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            //call the next frame
+            requestAnimationFrame(loop);
+        }
     </script>
 </body>
 </html>
