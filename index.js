@@ -18,12 +18,13 @@ let xv = starSpeed * randomSign() * Math.random();
 // Using Pythagoras theorem, yv = sqrt(starSpeed^2 - xv^2)
 let yv = Math.sqrt(Math.pow(starSpeed, 2) - Math.pow(xv, 2)) * randomSign();
 for (let i = 0; i < STAR_NUM; i++) {
+    let speedMult = Math.random() * 1.5 + 0.5;
     stars[i] = {
         r: Math.random() * STAR_SIZE * canvas.width / 2,
         x: Math.floor(Math.random() * canvas.height),
         y: Math.floor(Math.random() * canvas.height),
-        xv: xv,
-        yv: yv
+        xv: xv * speedMult,
+        yv: yv * speedMult
             }
     }
 
@@ -49,11 +50,25 @@ requestAnimationFrame(loop);
             ctx.fill();
 
     // Update the star's x position 
-            stars[i].x += stars[i].xv * timeDelta * 0.001;
+        stars[i].x += stars[i].xv * timeDelta * 0.001;
+
+    // reposition the star to the other side if it gose off screen
+        if (stars[i].x < 0 - stars[i].r) {
+            stars[i].x = canvas.width + stars[i].r;
+        } else if (stars[i].x > canvas.width + stars[i].r) {
+            stars[i].x = 0 - stars[i].r;
+        }
 
     // Update the star's y position 
-            stars[i].y += stars[i].yv * timeDelta * 0.001;
+        stars[i].y += stars[i].yv * timeDelta * 0.001;
+
+    // reposition the star to the other side if it gose off screen
+        if (stars[i].y < 0 - stars[i].r) {
+            stars[i].y = canvas.height + stars[i].r;
+        } else if (stars[i].y > canvas.height + stars[i].r) {
+            stars[i].y = 0 - stars[i].r;
         }
+    }
 
     //call the next frame
         requestAnimationFrame(loop);
