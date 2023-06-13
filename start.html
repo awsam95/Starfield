@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Starfield</title>
+    <style>
+        body {
+            margin : 0;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
 </head>
 <body>
     <script>
@@ -19,6 +27,13 @@
         canvas.height = document.documentElement.clientHeight;
         canvas.width = document.documentElement.clientWidth;
         document.body.appendChild(canvas);
+
+        //set up the stars
+        let stars = [];
+        let starSpeed = STAR_SPEED * canvas.width;
+        let xv = starSpeed * randomSign() * Math.random();
+        // Using Pythagoras theorem, yv = sqrt(starSpeed^2 - xv^2)
+        let yv = Math.sqrt(Math.pow(starSpeed * 2) - Math.pow(xv, 2)) * randomSign();
 
         // set up the enimation loop
         let timeDelta, timeLast = 0;
@@ -36,6 +51,10 @@
 
             //call the next frame
             requestAnimationFrame(loop);
+        }
+
+        function randomSign() {
+            return Math.random() >= 0.5 ? 1 : -1;
         }
     </script>
 </body>
