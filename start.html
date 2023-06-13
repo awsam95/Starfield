@@ -33,7 +33,7 @@
         let starSpeed = STAR_SPEED * canvas.width;
         let xv = starSpeed * randomSign() * Math.random();
         // Using Pythagoras theorem, yv = sqrt(starSpeed^2 - xv^2)
-        let yv = Math.sqrt(Math.pow(starSpeed * 2) - Math.pow(xv, 2)) * randomSign();
+        let yv = Math.sqrt(Math.pow(starSpeed, 2) - Math.pow(xv, 2)) * randomSign();
 
         // set up the enimation loop
         let timeDelta, timeLast = 0;
